@@ -49,13 +49,22 @@ def convert_to_mp3(initial_path, output_path):
 
 
 def main():
-    if len(sys.argv) < 4:
-        print('Usage: python script.py "search query" N duration')
+    if len(sys.argv) < 5:
+        print('Usage: python script.py "search query" N duration output_file_name')
         sys.exit(1)
 
     search_query = sys.argv[1]
     n = int(sys.argv[2])
+    # if n < 1:
+    if n < 11:
+        print("N must be greater than 10.")
+        sys.exit(1)
     duration = int(sys.argv[3])
+    output_file_name = sys.argv[4]
+
+    if duration < 21:
+        print("Duration must be greater than 20 seconds.")
+        sys.exit(1)
 
     base_dir = "output"
     video_dir = os.path.join(base_dir, "videos")
@@ -68,10 +77,12 @@ def main():
 
     os.makedirs(audio_dir, exist_ok=True)
     for file in os.listdir(video_dir):
-        if file.lower().endswith((
-            ".opus",
-            ".ogg",
-        )):
+        if file.lower().endswith(
+            (
+                ".opus",
+                ".ogg",
+            )
+        ):
             input_path = os.path.join(video_dir, file)
             output_path = os.path.join(audio_dir, f"{os.path.splitext(file)[0]}.mp3")
             convert_to_mp3(input_path, output_path)
@@ -85,7 +96,7 @@ def main():
         print("No audio files were created.")
         sys.exit(1)
     # merge all mp3 files into one
-    merged_path = os.path.join(audio_dir, "merged.mp3")
+    merged_path = os.path.join(audio_dir, output_file_name)
     print("Merging audio files...")
     with open(merged_path, "wb") as merged_file:
         for file in trimmed_files:
