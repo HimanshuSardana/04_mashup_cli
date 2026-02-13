@@ -1,5 +1,9 @@
 # Song Mashup Generator
 
+**Web Service Code**: [Click Here](https://github.com/HimanshuSardana/04_mashup_assignment)
+
+**Web Service Live Link**: [Click Here](https://mashup.himanshu.co)
+
 A simple command-line app that automatically creates a mashup by:
 
 1. Searching YouTube for a query
